@@ -1,0 +1,29 @@
+<%- include inc/header.ejs %>
+
+
+<%
+  if( err ){
+    %><div class="alert alert-danger" role="alert"><%=err%></div><%
+  } else if ( success ){
+    %><div class="alert alert-success" role="alert"> Torrent successfully added </div><%
+  }
+%>
+<h3> URL / Magnet </h3>
+<form method='post' enctype='multipart/form-data' >
+  <div class="form-group">
+    <input type="text" class="form-control" name="torrenturl" placeholder="URL"><br />
+    <button type='submit' class='btn btn-default' > Send </button>
+  </div>
+</form>
+
+<hr>
+
+<h3> File </h3>
+<form method='post' enctype='multipart/form-data' >
+  <div class="form-group">
+    <input type="file" name="torrentfile" ><br />
+    <button type='submit' class='btn btn-default'> Upload </button>
+  </div>
+</form>
+
+<%- include inc/footer.ejs %>

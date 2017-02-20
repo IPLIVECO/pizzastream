@@ -1,0 +1,36 @@
+<%- include inc/header.ejs %>
+
+
+
+<% if( Object.keys(torrents).length ) { %>
+  <div class='panel panel-default'>
+    <table class='table table-bordered'>
+    <%
+      Object.keys(torrents).forEach(function(k){
+        %>
+        <tr>
+          <td style="width: 1px">
+            <a class='btn btn-primary' href='/info/<%=torrents[k].infoHash%>' > <i class='fa fa-bars'></i> </a>
+          </td>
+          <td style="width: 1px">
+            <a class='btn btn-success' href='/download/<%=torrents[k].infoHash%>' > <i class='fa fa-download'></i> </a>
+          </td>
+          <td style="width: 1px">
+            <button class='btn btn-danger' onclick="window.confirm('Are you sure?') ? location.href='/remove/<%=torrents[k].infoHash%>' : null "> <i class='fa fa-trash'></i> </button>
+          </td>
+          <td>
+            <h5><%=torrents[k].name%></h5>
+          </td>
+        </tr>
+        <%
+      });
+    %>
+    </table>
+  </div>
+<% } else { %>
+  <h1> No torrents, <a href='/upload'>add</a> one! </h1>
+<% } %>
+
+
+
+<%- include inc/footer.ejs %>

@@ -1,0 +1,60 @@
+<%- include inc/header.ejs %>
+
+<div class='panel panel-default'>
+  <div class='panel-heading'><h3 class='panel-title'><i class='fa fa-info'></i> Info</h3></div>
+  <table class='table table-bordered'>
+    <tr><th style="width: 100px">Name</th><td><%=torrent.name%></td></tr>
+    <tr><th style="width: 100px">Size</th><td><%=torrent.length%></td></tr>
+    <tr><th style="width: 100px">Info Hash</th><td><%=torrent.infoHash%></td></tr>
+    <tr><th style="width: 100px">Created</th><td><%=torrent.created%></td></tr>
+    <tr><th style="width: 100px">Private</th><td><%=torrent.private?'Yes':'No'%></td></tr>
+    <tr><th style="width: 100px">Comment</th><td><%=torrent.comment%></td></tr>
+  </table>
+</div>
+
+<div class='panel panel-default'>
+  <div class='panel-heading'><h3 class='panel-title'><i class='fa fa-tasks'></i> Trackers</h3></div>
+  <table class='table table-bordered'>
+    <%
+      torrent.announce.forEach(function(announce, i){
+        %>
+        <tr>
+          <td><%=announce%></td>
+        </tr>
+        <%
+      });
+    %>
+  </table>
+</div>
+<div class='panel panel-default'>
+  <div class='panel-heading'><h3 class='panel-title'><i class='fa fa-files-o'></i> Files</h3></div>
+  <table class='table table-bordered'>
+    <thead>
+      <th>Get</th>
+      <th>Name</th>
+      <th>Size</th>
+    </thead>
+    <%
+      torrent.files.forEach(function(file, i){
+        %>
+        <tr>
+          <td style="width: 1px">
+            <button  type="button" class="btn btn-success" data-toggle="popover" data-placement="top" title="Streaming link" data-content="<%=req.protocol%>://<%=req.headers.host%>/get/<%=torrent.infoHash%>/<%=i%>"><i class='fa fa-cloud-download'></i></button>
+            </td>
+          <td><h5><%=file.path%></h5></td>
+          <td><h5><%=file.length%></h5></td>
+
+        </tr>
+        <%
+      });
+    %>
+  </table>
+</div>
+
+<script>
+  $(function(){
+    $("[data-toggle=popover]").popover();
+  });
+</script>
+
+<%- include inc/footer.ejs %>
